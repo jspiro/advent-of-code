@@ -1,0 +1,10 @@
+spec: 'test/**/*.coffee'
+watch-extensions: ['js', 'coffee', 'json', 'yml', 'yaml']
+require:
+  - coffeescript/register
+reporter: spec
+ui: bdd
+recursive: true
+exit: false
+throw-deprecation: true
+timeout: 5000
