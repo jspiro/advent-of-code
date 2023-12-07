@@ -45,23 +45,23 @@ for solver, index in solvers
         '7pqrstsixteen'
       ])).to.equal 29 + 83 + 13 + 24 + 42 + 14 + 76
 
-  it 'should interpret numeric words alone', ->
-    expect(solver(['one', 'two', 'three'])).to.equal 11 + 22 + 33
+    it 'should interpret numeric words alone', ->
+      expect(solver(['one', 'two', 'three'])).to.equal 11 + 22 + 33
 
-  it 'should interpret numeric words mixed with digits', ->
-    expect(solver(['one1', 'two2', 'three3'])).to.equal 11 + 22 + 33
+    it 'should interpret numeric words mixed with digits', ->
+      expect(solver(['one1', 'two2', 'three3'])).to.equal 11 + 22 + 33
 
-  it 'should find numeric words in sentences', ->
-    expect(solver(['The number is two', 'Find three birds'])).to.equal 22 + 33
+    it 'should find numeric words in sentences', ->
+      expect(solver(['The number is two', 'Find three birds'])).to.equal 22 + 33
 
-  it 'should interpret consecutive numeric words', ->
-    expect(solver(['onetwothree', 'fourfivesix'])).to.equal 13 + 46
+    it 'should interpret consecutive numeric words', ->
+      expect(solver(['onetwothree', 'fourfivesix'])).to.equal 13 + 46
 
-  it 'should ignore non-numeric words', ->
-    expect(solver(['apple', 'onebanana', 'twocar'])).to.equal 0 + 11 + 22
+    it 'should ignore non-numeric words', ->
+      expect(solver(['apple', 'onebanana', 'twocar'])).to.equal 0 + 11 + 22
 
-  it 'should return 0 for empty and non-alpha strings', ->
-    expect(solver(['', '1234', '!@#$'])).to.equal 0 + 14 + 0
+    it 'should return 0 for empty and non-alpha strings', ->
+      expect(solver(['', '1234', '!@#$'])).to.equal 0 + 14 + 0
 
-  it 'should solve this correctly', ->
-    expect(solver(['66oneightxf'])).to.equal 68
+    it 'should solve this correctly', ->
+      expect(solver(['66oneightxf'])).to.equal 68
