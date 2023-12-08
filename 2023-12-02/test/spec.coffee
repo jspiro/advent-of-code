@@ -13,7 +13,13 @@ for solver, index in solvers
         Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
         Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green
         """.split("\n"), { red: 12, green: 13, blue: 14 })
-      ).to.deep.equal 8
+      ).to.equal(
+        4 * 2 * 6 +
+        1 * 3 * 4 +
+        20 * 13 * 6 +
+        14 * 3 * 15 +
+        6 * 3 * 2
+      )
 
     it 'should return 0 for empty input', ->
-      expect(solver([])).to.deep.equal 0
+      expect(solver([])).to.equal 0

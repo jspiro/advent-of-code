@@ -29,9 +29,5 @@ parseLines = (input) ->
 exports.solvers = [
   (input, requirements) ->
     games = parseLines input
-    possibleGames = games.reduce((prev, game) ->
-      for color, amount of requirements
-        return prev if game[color] > amount
-      prev + game.id
-    , 0)
+    games.reduce ((total, game) -> total + game.red * game.green * game.blue), 0
 ]

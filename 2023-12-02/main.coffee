@@ -18,8 +18,8 @@ argv = yargs hideBin process.argv
   .alias('help', 'h')
 
   .command {
-    command: ['$0 [-s <solver>] <reds> <greens> <blues> <file>']
-    desc: 'Pass file and requirements to given solver'
+    command: ['$0 [-s <solver>] <file>']
+    desc: 'Pass file to given solver'
     builder: (yargs) ->
       yargs
         .option 'solver', {
@@ -28,21 +28,6 @@ argv = yargs hideBin process.argv
           type: 'number'
           choices: [1..solvers.length]
           default: 1
-        }
-        .positional 'reds', {
-          describe: 'Red cubes required'
-          type: 'number'
-          demandOption: true
-        }
-        .positional 'greens', {
-          describe: 'Green cubes required'
-          type: 'number'
-          demandOption: true
-        }
-        .positional 'blues', {
-          describe: 'Blue cubes required'
-          type: 'number'
-          demandOption: true
         }
         .positional 'file', {
           describe: 'Input file to process'
@@ -64,11 +49,7 @@ argv = yargs hideBin process.argv
         input = fs
           .readFileSync argv.file, 'utf8'
           .split "\n"
-        console.log chalk.green solvers[argv.solver - 1](input, {
-          red: argv.reds
-          green: argv.greens
-          blue: argv.blues
-        })
+        console.log chalk.green solvers[argv.solver - 1](input)
   }
   # .demandCommand 1, 'You must specify a command'
   .argv
