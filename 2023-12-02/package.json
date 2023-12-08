@@ -1,0 +1,21 @@
+{
+  "name": "advent-of-code",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "coffee main.coffee input.txt",
+    "start-watch": "watch 'npm start'",
+    "test": "mocha",
+    "test-watch": "watch mocha"
+  },
+  "devDependencies": {
+    "chai": "3.3.0",
+    "mocha": "10.2.0",
+    "watch": "^1.0.2"
+  },
+  "dependencies": {
+    "chalk": "^4",
+    "debug": "^4.3.4",
+    "yargs": "^17.7.2"
+  }
+}
