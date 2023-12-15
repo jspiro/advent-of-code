@@ -91,12 +91,41 @@ parseLines = (input) ->
     numberRects = numberRects.concat numbers
     symbolRects = symbolRects.concat symbols
 
+  # Debug:
+  # console.log drawCanvas numberRects, symbolRects
+
   # Filter in numbers that overlap with symbols and return them.
   numberRects.filter((rect) ->
     for symbolRect in symbolRects
       return true if rect.overlaps symbolRect
     false
   ).map (rect) -> rect.number
+
+drawCanvas = (numberRects, symbolRects) ->
+  # Determine the maximum dimensions.
+  maxX = Math.max (rect.x + rect.width for rect in numberRects.concat(symbolRects))...
+  maxY = Math.max (rect.y + rect.height for rect in numberRects.concat(symbolRects))...
+
+  # Initialize the canvas.
+  canvas = (Array(maxX + 1).fill('.') for _ in [0...maxY])
+
+  # Draw the symbol rectangles.
+  for rect in symbolRects
+    centerX = Math.floor(rect.x + rect.width / 2)
+    centerY = Math.floor(rect.y + rect.height / 2)
+    canvas[centerY][centerX] = rect.symbol
+
+  # Draw the number rectangles.
+  for rect in numberRects
+    startX = rect.x
+    centerY = Math.floor(rect.y + rect.height / 2)
+    numberString = rect.number.toString()
+    for i in [0...numberString.length]
+      if startX + i < maxX
+        canvas[centerY][startX + i] = numberString[i]
+
+  # Convert the canvas to a string and return it.
+  return (row.join('') for row in canvas).join('\n')
 
 exports.solvers = [
   (input, requirements) ->
