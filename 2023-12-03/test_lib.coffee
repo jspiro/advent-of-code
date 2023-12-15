@@ -16,7 +16,7 @@ for solver, index in solvers
       ......755.
       ...$.*....
       .664.598..
-      """.split("\n"))).to.equal 4361
+      """.split("\n"))).to.equal 467835
 
 describe 'Rectangle', ->
   it 'should overlap with', ->

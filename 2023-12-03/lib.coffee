@@ -101,11 +101,18 @@ parseLines = (input) ->
   # console.log drawCanvas numberRects, symbolRects
 
   # Filter in numbers that overlap with symbols and return them.
-  numberRects.filter((rect) ->
-    for symbolRect in symbolRects
-      return true if rect.overlaps symbolRect
-    false
-  ).map (rect) -> rect.number
+  # numberRects.filter((rect) ->
+  #   for symbolRect in symbolRects
+  #     return true if rect.overlaps symbolRect
+  #   false
+  # ).map (rect) -> rect.number
+
+  # If the symbol overlaps with exactly two numbers, multiple them
+  # together and return the result.
+  for symbolRect in symbolRects when symbolRect.symbol is '*'
+    overlappingNumbers = numberRects.filter (rect) -> rect.overlaps symbolRect
+    continue unless overlappingNumbers.length is 2
+    overlappingNumbers[0].number * overlappingNumbers[1].number
 
 drawCanvas = (numberRects, symbolRects) ->
   # Determine the maximum dimensions.
