@@ -78,6 +78,12 @@ parseLine = (lineNumber, line) ->
     symbols.push new SymbolRectangle(c, x, lineNumber)
     debug('lib:sym') symbols[symbols.length - 1].toString()
 
+  # Terminate the last number, if necessary.
+  if currentNumber?
+    debug('lib:num') currentNumber.toString()
+    numbers.push currentNumber
+    currentNumber = null
+
   { numbers, symbols }
 
 parseLines = (input) ->
