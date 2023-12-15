@@ -8,11 +8,14 @@ inspect = (obj) ->
     showHidden: true, depth: null, colors: true
   }
 
-class Rectangle
+exports.Rectangle = class Rectangle
   constructor: (@x = 0, @y = 0, @width = 0, @height = 0) ->
 
   toString: ->
-    "Rectangle(x: #{@x}, y: #{@y}, width: #{@width}, height: #{@height})"
+    "Rectangle(l: #{@left().toString().padStart(4)}, " +
+    "r: #{@right().toString().padStart(4)}, " +
+    "t: #{@top().toString().padStart(4)}, " +
+    "b: #{@bottom().toString().padStart(4)})"
 
   left: -> @x
   right: -> @x + @width
@@ -26,20 +29,26 @@ class Rectangle
     return false if @bottom() <= other.top()
     true
 
-class NumberRectangle extends Rectangle
+exports.NumberRectangle = class NumberRectangle extends Rectangle
   constructor: (x, y) ->
     # Height is always 1 for a number rectangle.
     super x, y, 0, 1
     @number = 0
 
   toString: ->
-    "NumberRectangle(x: #{@x}, y: #{@y}, number: #{@number})"
+    "#{@number.toString().padStart 4} -> #{super.toString()}"
 
   addDigit: (digit) ->
     @number = @number * 10 + digit
     @width += 1
 
-exports.Rectangle = Rectangle
+exports.SymbolRectangle = class SymbolRectangle extends Rectangle
+  constructor: (@symbol, centerX, centerY) ->
+    # Height and width are always 3 for a symbol rectangle.
+    super centerX - 1, centerY - 1, 3, 3
+
+  toString: ->
+    "#{@symbol.padStart 4} -> #{super.toString()}"
 
 isNumber = (c) -> '0' <= c <= '9'
 
@@ -66,8 +75,7 @@ parseLine = (lineNumber, line) ->
     continue if c is '.'
 
     # Add the symbol.
-    symbols.push new Rectangle(x - 1, lineNumber - 1, 3, 3)
-    debug('lib:sym') c, x, lineNumber
+    symbols.push new SymbolRectangle(c, x, lineNumber)
     debug('lib:sym') symbols[symbols.length - 1].toString()
 
   { numbers, symbols }

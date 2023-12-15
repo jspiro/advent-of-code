@@ -1,4 +1,4 @@
-spec: 'test/**/*.coffee'
+spec: ['test/**/*.coffee', '**/test_*.coffee']
 watch-extensions: ['js', 'coffee', 'json', 'yml', 'yaml']
 require:
   - coffeescript/register
