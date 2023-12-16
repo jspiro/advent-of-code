@@ -39,13 +39,23 @@ parseLine = (lineNumber, line) ->
   scratchedNumbers = scratchedNumbers.trim().split(/\s+/g).map (n) -> parseInt n
   card = new ScratcherCard(winningNumbers.sort(), scratchedNumbers.sort())
   debug("lib:card") "Card #{lineNumber + 1}: #{card.toString()}"
-  card.getPointValue()
+  card.getWinningMatches().length
 
 parseLines = (input) ->
-  points = 0
+  cards = []
   for line, lineNumber in input when line.length
-    points += parseLine lineNumber, line
-  points
+    cards.push { card: lineNumber + 1, matches: parseLine lineNumber, line }
+
+  i = 0
+  while i < cards.length
+    card = cards[i]
+    # console.log "Processing #{JSON.stringify card}"
+    for j in [card.card...card.card + card.matches]
+      bonusCard = cards[j]
+      # console.log "Adding bonus #{JSON.stringify bonusCard}"
+      cards.push bonusCard
+    i++
+  cards.length
 
 exports.solvers = [
   (input, requirements) ->
